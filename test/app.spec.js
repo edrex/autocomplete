@@ -21,6 +21,7 @@ describe('boundsOfWordAtPosition', function(){
     for (const [pos, want] of [
       [6, [5, 11]],
       [0, [0, 0]],
+      [15, [12, 20]]
     ]) {
       const have = boundsOfWordAtPosition(text, pos);
       expect(have).to.deep.equal(want);

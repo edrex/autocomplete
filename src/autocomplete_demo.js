@@ -1,6 +1,6 @@
 import React from 'react';
 
-const wordCharsPat = '\\w',
+const wordCharsPat = '[\\w\-]',
     startRegex = new RegExp(wordCharsPat + '*$'),
     endRegex = new RegExp('^' + wordCharsPat + '*');
 
