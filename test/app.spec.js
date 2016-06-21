@@ -6,10 +6,10 @@ import React from 'react';
 // http://www.asbjornenge.com/wwc/testing_react_components.html
 
 describe('Autocomplete', function(){
-  it('says hello', function(){
+  it('starts with a textarea', function(){
     let shallowRenderer = ReactTestUtils.createRenderer();
     shallowRenderer.render(React.createElement(AutocompleteDemo));
     let result = shallowRenderer.getRenderOutput();
-    expect(result.type).to.equal('h1');
+    expect(result.type).to.equal('textarea');
   });
 });
