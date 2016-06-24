@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "babel-plugin-transform-react-jsx": "^6.8.0"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "jasmine": "^2.4.1",
@@ -27,9 +29,12 @@
     "name": "app",
     "main": "app.js",
     "dependencies": {
-      "react-dom": "npm:react-dom@^15.1.0"
+      "classnames": "npm:classnames@^2.2.5",
+      "fetch": "github:github/fetch@^1.0.0"
     },
     "devDependencies": {
+      "babel-plugin-transform-react-jsx": "npm:babel-plugin-transform-react-jsx@^6.8.0",
+      "core-js": "npm:core-js@^2.4.0",
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.12"
     },
     "peerDependencies": {
@@ -46,6 +51,7 @@
       "path": "github:jspm/nodelibs-path@^0.2.0-alpha",
       "process": "github:jspm/nodelibs-process@^0.2.0-alpha",
       "react": "npm:react@^15.1.0",
+      "react-dom": "npm:react-dom@^15.1.0",
       "stream": "github:jspm/nodelibs-stream@^0.2.0-alpha",
       "string_decoder": "github:jspm/nodelibs-string_decoder@^0.2.0-alpha",
       "url": "github:jspm/nodelibs-url@^0.2.0-alpha",
@@ -63,10 +69,28 @@
           "_stream_transform": "readable-stream/transform"
         }
       },
+      "npm:debug@2.2.0": {
+        "main": "browser.js",
+        "jspmNodeConversion": false,
+        "format": "cjs",
+        "map": {
+          "./browser.js": {
+            "node": "./node.js"
+          },
+          "fs": "@node/fs",
+          "net": "@node/net",
+          "tty": "@node/tty",
+          "util": "@node/util"
+        }
+      },
       "npm:inherits@2.0.1": {
         "ignore": [
           "test.js"
         ]
+      },
+      "npm:ms@0.7.1": {
+        "jspmNodeConversion": false,
+        "format": "cjs"
       }
     }
   },

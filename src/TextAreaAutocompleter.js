@@ -1,8 +1,8 @@
 import React from 'react';
 
 const wordCharsPat = '[\\w\-]',
-    startRegex = new RegExp(wordCharsPat + '*$'),
-    endRegex = new RegExp('^' + wordCharsPat + '*');
+    startRegex = new RegExp(`${wordCharsPat}*$`),
+    endRegex = new RegExp(`^${wordCharsPat}*`);
 
 export function boundsOfWordAtPosition(text, position) {
   const textBefore = text.slice(0, position),
@@ -18,17 +18,21 @@ export function boundsOfWordAtPosition(text, position) {
   return [start, end];
 }
 
-export default class AutoCompleteDemo extends React.Component {
+export default class TextAreaAutocompleter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {text: props.initialText};
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {
-    const currentPosition = event.target.selectionEnd
-    const currentWord = event.target.value
-    this.setState({text: event.target.value});
-    console.log(event);
+    const position = event.target.selectionEnd,
+          text = event.target.value,
+          wordBounds = boundsOfWordAtPosition(text, position),
+          word = text.slice(...wordBounds);
+    this.setState({
+      text: text,
+      wordBounds: wordBounds
+    });
   }
   render() {
     return React.createElement('textarea', {
@@ -39,4 +43,7 @@ export default class AutoCompleteDemo extends React.Component {
   }
 }
 
-AutoCompleteDemo.defaultProps = {initialText: 'Hello!'};
+TextAreaAutocompleter.defaultProps = {
+  initialText: '',
+  availableFolks: []
+};
