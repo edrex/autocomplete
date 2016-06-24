@@ -306,6 +306,16 @@ SystemJS.config({
     }
   },
   transpiler: "plugin-babel",
+  meta: {
+    "test/*.js": {
+      "loader": "plugin-babel",
+      "babelOptions": {
+        "plugins": [
+          "babel-plugin-transform-react-jsx"
+        ]
+      }
+    }
+  },
   packages: {
     "app": {
       "main": "app.js",
