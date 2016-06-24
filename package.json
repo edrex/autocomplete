@@ -30,7 +30,9 @@
     "main": "app.js",
     "dependencies": {
       "classnames": "npm:classnames@^2.2.5",
-      "fetch": "github:github/fetch@^1.0.0"
+      "escape-string-regexp": "npm:escape-string-regexp@^1.0.5",
+      "fetch": "github:github/fetch@^1.0.0",
+      "isomorphic-fetch": "npm:isomorphic-fetch@^2.2.1"
     },
     "devDependencies": {
       "babel-plugin-transform-react-jsx": "npm:babel-plugin-transform-react-jsx@^6.8.0",

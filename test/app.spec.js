@@ -1,5 +1,5 @@
 import TextAreaAutocompleter from 'app/TextAreaAutocompleter';
-import {boundsOfWordAtPosition} from 'app/TextAreaAutocompleter';
+import {suggestableWord} from 'app/TextAreaAutocompleter';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
 import React from 'react';
 
@@ -15,15 +15,16 @@ describe('TextAreaAutocompleter', () => {
   });
 });
 
-describe('boundsOfWordAtPosition', () => {
+describe('suggestableWord', () => {
   it('matches bounds of current word', () => {
-    const text = "fooo fooooo ffo-oooo";
+    const text = "fooo @fooooo @ffo-oooo";
     for (const [pos, want] of [
-      [6, [5, 11]],
-      [0, [0, 0]],
-      [15, [12, 20]]
+      [6, [6, 12]],
+      [5, null],
+      [0, null],
+      [15, [14, 22]]
     ]) {
-      const have = boundsOfWordAtPosition(text, pos);
+      const have = suggestableWord(text, pos);
       expect(have).to.deep.equal(want);
     }
   });
