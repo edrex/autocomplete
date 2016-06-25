@@ -12,7 +12,7 @@ node_modules/.bin/jspm install
 ### Run tests
 
 ```
-node_modules/.bin/mocha start
+node_modules/.bin/karma start
 ```
 
 ### Build
