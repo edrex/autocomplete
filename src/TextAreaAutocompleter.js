@@ -18,6 +18,11 @@ export function suggestableWord(text, position) {
   return [start, end];
 }
 
+// workaround js % mishandling of negative numbers
+function mod(n, m) {
+  return ((n % m) + m) % m;
+}
+
 export default class TextAreaAutocompleter extends React.Component {
   constructor(props) {
     super(props);
@@ -37,6 +42,9 @@ export default class TextAreaAutocompleter extends React.Component {
     if (wordBounds) {
       const word = text.slice(...wordBounds);
       suggestions = this.props.suggester(word);
+      if (suggestions.length == 1 && suggestions[0].username == word) {
+        suggestions = null;
+      }
     }
     this.setState({
       text: text,
@@ -45,13 +53,15 @@ export default class TextAreaAutocompleter extends React.Component {
       suggestions: suggestions
     });
   }
-  handleSelect() {
-    const suggestion = this.state.suggestions[this.state.cursor],
+  handleSelect(i) {
+    i = i || this.state.cursor
+    const suggestion = this.state.suggestions[i],
           text = this.state.text,
           [start, end] = this.state.wordBounds;
     this.setState({
-      text: text.slice(0,start) + suggestion + text.slice(end),
-      suggestions: null
+      text: text.slice(0,start) + suggestion.username + text.slice(end),
+      suggestions: null,
+      cursor: null
     })
   }
   render() {
@@ -62,9 +72,9 @@ export default class TextAreaAutocompleter extends React.Component {
           <div key={item.username}
             className={classnames('user-chooser-user', {'is-selected': this.state.cursor == i})}
             onClick={ () => {
-              this.setState({cursor: i})
-              this.handleSelect()
+              this.handleSelect(i)
             } }
+            tabIndex="1"
             onMouseOver={ () => { this.setState({cursor: i}) } } >
               <img class='user-chooser-user-avatar' src={item.avatar_url}/>
               <div class='user-chooser-user-username'>{item.username}</div>
@@ -75,7 +85,6 @@ export default class TextAreaAutocompleter extends React.Component {
     }
 
     return <div class="autocompleter"
-      tabIndex="1"
       onKeyDown={(e) => {
         if (this.state.suggestions) {
           switch (e.key) {
@@ -89,7 +98,6 @@ export default class TextAreaAutocompleter extends React.Component {
             this.handleSelect()
             break;
           default:
-            console.log(e.key);
             return;
           }
           e.preventDefault();
@@ -105,12 +113,13 @@ export default class TextAreaAutocompleter extends React.Component {
         value={this.state.text}
         onChange={this.handleChange}
         onSelect={this.handleChange}
+        onFocus={this.handleChange}
       />
       {userChooser}
     </div>;
   }
   moveCursorBy(d) {
-    this.setState({cursor: (this.state.cursor+d) % this.state.suggestions.length})
+    this.setState({cursor: mod(this.state.cursor+d, this.state.suggestions.length)})
   }
   clearSuggestions() {
     this.setState({suggestions: null})
