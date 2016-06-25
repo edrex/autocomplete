@@ -63,6 +63,17 @@ describe('TextAreaAutocompleter', () => {
     expect(r.state("suggestions")).to.equal(null);
     expect(r.state("text")).to.equal("a @mhansen2");
   });
+  it('hides suggestions only when focus moves outside component', () => {
+    let r = mount(<TextAreaAutocompleter suggester={testSuggester}/>),
+        t = r.find('textarea');
+    t.simulate('change', {target:{value: "a @abcd", selectionStart:5}});
+    expect(r.state("suggestions").length).to.equal(3);
+    let s = r.find('.user-chooser');
+    t.simulate('blur', {relatedTarget: s.node});
+    expect(r.state("suggestions").length).to.equal(3);
+    r.simulate('blur', {relatedTarget: r.parent().node});
+    expect(r.state("suggestions")).to.equal(null);
+  });
 });
 
 describe('suggestableWord', () => {
