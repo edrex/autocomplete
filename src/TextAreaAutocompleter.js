@@ -76,9 +76,11 @@ export default class TextAreaAutocompleter extends React.Component {
             } }
             tabIndex="1"
             onMouseOver={ () => { this.setState({cursor: i}) } } >
-              <img class='user-chooser-user-avatar' src={item.avatar_url}/>
-              <div class='user-chooser-user-username'>{item.username}</div>
-              <div class='user-chooser-user-name'>{item.name}</div>
+              <img className='user-chooser-user-avatar' src={item.avatar_url}/>
+              <div className='user-chooser-user-detail'>
+                <div className='user-chooser-user-username'>{item.username}</div>
+                <div className='user-chooser-user-name'>{item.name}</div>
+              </div>
           </div>
         )}
       </div>
@@ -104,6 +106,9 @@ export default class TextAreaAutocompleter extends React.Component {
         }
       }}
       onBlur={(e) => {
+          // no action if we moved focus within the component
+          // along with tabindex on user-chooser, allows click selection to succeed
+          // TODO(edrex): look at the accessibility implications of this. Maybe tabindex per-item?
           if (!e.currentTarget.contains(e.relatedTarget)) {
             this.clearSuggestions()
           }
