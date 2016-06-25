@@ -4,7 +4,7 @@ import fetch from 'isomorphic-fetch';
 import TextAreaAutocompleter from 'app/TextAreaAutocompleter.js';
 import UserSuggester from 'app/UserSuggester.js';
 
-fetch('/data.json')
+fetch('data.json')
   .then(response => response.json())
   .then(users => {
     let container = document.getElementById('container');
