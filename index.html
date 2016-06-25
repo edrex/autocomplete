@@ -5,7 +5,55 @@
 <script src="jspm.config.js"></script>
 <link rel="stylesheet" href="style.css">
 <body>
-  <div id="container"></div>
-  <script>
-   SystemJS.import('app/app.js');
-  </script>
+
+<link rel="stylesheet" href="/markdown.css">
+<style>
+  video {
+      max-width: 500px;
+      width: 100%;
+  }
+
+  .textareaplus > textarea {
+      width: 100%;
+      max-width: 50em;
+  }
+</style>
+
+<h2>Demo</h2>
+<div id="container"></div>
+<script>
+ SystemJS.import('app/app.js');
+</script>
+<ul>
+  <li>@ is required leader char for autocomplete</li>
+  <li>Links result from text parsing (not first class input objects)</li>
+  <li>First element is highlighted: Down, enter keypress or pointer press is required to activate.</li>
+</ul>
+
+<h2>Research</h2>
+<h3>Twitter</h3>
+<video src="vids/twitter.mp4" controls></video>
+<ul>
+  <li>@ is required leader char for autocomplete</li>
+  <li>Links result from text parsing (not first class input objects)</li>
+  <li>First element is not highlighted: Down, enter keypress or pointer press is required to activate.</li>
+</ul>
+
+<h3>Google+</h3>
+<video src="vids/googleplus.mp4" controls></video>
+<ul>
+  <li>+ is required leader char for autocomplete</li>
+  <li>Links are first class input objects (the same +foo text could be a link or not depending on user input)</li>
+  <li>First element is highlighted, enter selects</li>
+  <li>All legal name chars (including space!) keep autocomplete up. Non-legal chars (such as numbers) terminate autocomplete without creating a link.</li>
+</ul>
+
+<h3>Facebook</h3>
+<video src="vids/facebook.mp4" controls></video>
+<ul>
+  <li>Autocomplete activation is based on some hidden rule rather than a leader char, which may be fuzzy.</li>
+  <li>Links are first class input objects. Deleting also happens word-wise, which is interesting if you just want the first name linked.</li>
+  <li>First element is highlighted, enter/pointer press selects</li>
+  <li>Any non-word chars terminate autocomplete, so you can only match on first or last, but not both.</li>
+</ul>
+</div>
