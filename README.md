@@ -1,29 +1,48 @@
 Demo at: https://edrex.github.io/autocomplete
 
-## Run
-
-### Install dependencies
+## Dependencies
 
 ```
 npm install
 node_modules/.bin/jspm install
 ```
 
-### Run tests
+## Tests
 
 ```
 node_modules/.bin/karma start
 ```
 
-### Build
+### Loose Mode
 
-Watch source files and rebuild bundle.js:
+The `master` branch includes an `index.html` that loads code following the contents of `jspm.config.js`. This can either be "loose mode", where all files are loaded individually - this can be quite slow over HTTP/1.1 but doesn't require a build step - or "bundled mode" (the default). Serve the project directory using any static webserver. 
+
+To watch source files and rebuild `bundle.js`:
 
 ```
 node_modules/.bin/jspm bundle app/app.js -wid
 ```
 
-This output is development mode. There are flags to minify etc.
+
+### Bundled
+
+The `gh-pages` branch contains an `index.html` which loads all code from a single `build.js`. This build differs from the above bundle in that it is self-contained and doesn't require `jspm.config.js` to be loaded first. The build is commited to the repository, which is convenient because the  deployment target is Github pages.
+
+To rebuild, run 
+
+```
+jspm build app --minify
+```
+
+To update the branch, rebase master:
+
+```
+git checkout gh-pages
+git rebase master
+```
+
+(hopefully no conflicts)
+
 
 ## Technologies used
 
